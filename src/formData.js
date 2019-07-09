@@ -110,6 +110,24 @@ export const formData = [
       }
     ]
   },
+  {
+    id: "show-next-field",
+    label: "Show next field",
+    type: "checkbox",
+    validationType: "boolean"
+  },
+  {
+    id: "help",
+    label: "need help",
+    type: "text",
+    validationType: "string",
+    dependsOn: [
+      {
+        field: "show-next-field",
+        activate: [{ operator: "===", value: true, type: "boolean" }]
+      }
+    ]
+  },
   // This field is different since it depends on another field
   {
     id: "field-depends-on-field",
