@@ -11,27 +11,18 @@ class DateOfBirth extends Component {
     const value = e.target.value;
     this.setState({ day: value });
     const { month, year } = this.state;
-    if (!month || !year || !value) {
-      this.props.setFieldValue("dob", "");
-    }
     this.props.setFieldValue("dob", `${value}-${month}-${year}`);
   };
   handleMonthChange = e => {
     const value = e.target.value;
     this.setState({ month: value });
     const { day, year } = this.state;
-    if (!day || !year || !value) {
-      this.props.setFieldValue("dob", "");
-    }
     this.props.setFieldValue("dob", `${day}-${value}-${year}`);
   };
   handleYearChange = e => {
     const value = e.target.value;
     this.setState({ year: value });
     const { day, month } = this.state;
-    if (!day || !month || !value) {
-      this.props.setFieldValue("dob", "");
-    }
     this.props.setFieldValue("dob", `${day}-${month}-${value}`);
   };
   render() {

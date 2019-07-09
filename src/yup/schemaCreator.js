@@ -1,6 +1,7 @@
 import * as yup from "yup";
 import { showField } from "../utils";
 import { showDependingValidationError } from "./utils";
+import "./customMethods";
 
 function validationSchemaCreator(schema, config, values) {
   const { id, validationType, validations = [], dependsOn } = config;

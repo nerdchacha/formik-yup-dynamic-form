@@ -97,8 +97,11 @@ export const formData = [
     validationType: "string",
     validations: [
       {
-        type: "required",
-        params: ["this field is required"]
+        type: "matches",
+        params: [
+          /^([0-2][0-9]|(3)[0-1])(-)(((0)[0-9])|((1)[0-2]))(-)\d{4}$/,
+          "this field is required"
+        ]
       },
       {
         type: "minAge",
