@@ -137,18 +137,31 @@ export const formData = [
     label: "Show hide field depending on another field",
     type: "text",
     validationType: "string",
-    dependsOn: [
-      {
-        field: "total",
-        // Activa/show when total !== 2 and total !== 3
-        activate: [
-          // Type is required since text, dropdown fields will change everything to number
-          // So the type defined what type should "total" be converted to before comparing it to 2 or 3
-          { operator: "!==", value: 2, type: "number" },
-          { operator: "!==", value: 3, type: "number" }
+    dependsOn: {
+      // type is required since textbox/dropdown will convert everything to string
+      fields: [
+        { name: "total", type: "number" },
+        { name: "email", type: "string" }
+      ],
+      // Use https://www.npmjs.com/package/json-logic-js to create the operator
+      operator: {
+        or: [
+          {
+            or: [
+              {
+                "===": [2, { var: "total" }]
+              },
+              {
+                "===": [3, { var: "total" }]
+              }
+            ]
+          },
+          {
+            "===": ["y@y.com", { var: "email" }]
+          }
         ]
       }
-    ],
+    },
     validations: [
       {
         type: "required",
@@ -171,15 +184,33 @@ export const formData = [
         type: "max",
         params: [
           3,
-          "The length of this cannot be more than 3 characters while total is equal to 5"
+          "The length of this cannot be more than 3 characters if total is 5 OR 6 AND phone number is 6"
         ],
-        dependsOn: [
-          {
-            field: "total",
-            // Show error when total === 5
-            activate: [{ operator: "===", value: 5, type: "number" }]
+        dependsOn: {
+          // type is required since textbox/dropdown will convert everything to string
+          fields: [
+            { name: "total", type: "number" },
+            { name: "phoneNumber", type: "number" }
+          ],
+          // Use https://www.npmjs.com/package/json-logic-js to create the operator
+          operator: {
+            and: [
+              {
+                or: [
+                  {
+                    "===": [5, { var: "total" }]
+                  },
+                  {
+                    "===": [6, { var: "total" }]
+                  }
+                ]
+              },
+              {
+                "===": [6, { var: "phoneNumber" }]
+              }
+            ]
           }
-        ]
+        }
       }
     ]
   }

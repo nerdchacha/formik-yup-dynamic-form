@@ -1,12 +1,12 @@
 import React, { Component } from "react";
-import { showField } from "../utils";
+import { eveluateJsonLogicOperator } from "../utils";
 
 class CheckBox extends Component {
   render() {
     const { error, label, name, values, onChange, dependsOn } = this.props;
     const value = values[name] || "";
     const renderError = error ? <strong>{error}</strong> : null;
-    const showElement = showField(dependsOn, values);
+    const showElement = eveluateJsonLogicOperator(dependsOn, values);
     if (!showElement) {
       return "";
     }

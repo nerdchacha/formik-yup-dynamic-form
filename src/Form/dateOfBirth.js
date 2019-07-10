@@ -26,25 +26,21 @@ class DateOfBirth extends Component {
       [field]: Object.assign({}, this.state[field], { touched: true })
     });
     const { day, month, year } = this.state;
-    const allTouchedConfig = {
-      day: () => true && month.touched && year.touched,
-      month: () => true && day.touched && year.touched,
-      year: () => true && day.touched && month.touched
-    };
     const { onBlur } = this.props;
-    if (allTouchedConfig[field]()) {
-      onBlur(e);
-    }
+    const allTouchedConfig = {
+      day: () => true && month.touched && year.touched && onBlur(e),
+      month: () => true && day.touched && year.touched && onBlur(e),
+      year: () => true && day.touched && month.touched && onBlur(e)
+    };
+    allTouchedConfig[field]();
   };
   render() {
-    const renderError = this.props.error ? (
-      <strong>{this.props.error}</strong>
-    ) : null;
-    const { name, touched } = this.props;
+    const { error, label, name, touched } = this.props;
+    const renderError = error ? <strong>{error}</strong> : null;
     const { day, month, year } = this.state;
     return (
       <div>
-        <label>{this.props.label}</label>
+        <label>{label}</label>
         <br />
         <input
           type="text"

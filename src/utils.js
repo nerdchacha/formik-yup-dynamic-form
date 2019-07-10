@@ -25,19 +25,13 @@ export function convertValue(value, type) {
   }
 }
 
-export function showField(dependsOn = [], values = {}) {
-  let showField = true;
-  if (!dependsOn.length) {
-    return showField;
-  }
-  dependsOn.forEach(({ field, activate }) => {
-    activate.forEach(({ operator, value, type }) => {
-      const dependentFieldValue = convertValue(values[field], type);
-      const result = jsonLogic.apply({
-        [operator]: [value, dependentFieldValue]
-      });
-      showField = showField && result;
-    });
-  });
-  return showField;
+export function eveluateJsonLogicOperator(dependsOn = {}, values = {}) {
+  const { operator = {}, fields = [] } = dependsOn;
+  const data = fields.reduce((seed, { name, type }) => {
+    const value = convertValue(values[name], type);
+    seed[name] = value;
+    return seed;
+  }, {});
+  const result = jsonLogic.apply(operator, data);
+  return result;
 }

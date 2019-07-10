@@ -1,6 +1,5 @@
 import * as yup from "yup";
-import { showField } from "../utils";
-import { showDependingValidationError } from "./utils";
+import { eveluateJsonLogicOperator } from "../utils";
 import "./customMethods";
 
 function validationSchemaCreator(schema, config, values) {
@@ -8,23 +7,20 @@ function validationSchemaCreator(schema, config, values) {
   if (!yup[validationType]) {
     return schema;
   }
-  const isFieldVisible = showField(dependsOn, values);
+  const isFieldVisible = eveluateJsonLogicOperator(dependsOn, values);
   // Dont add validation to schema if field is hidden
   if (!isFieldVisible) {
     return schema;
   }
   let validator = yup[validationType]();
   validations.forEach(validation => {
-    const { params, type, dependsOn: validationDependsOn = [] } = validation;
-    if (!validator[type]) {
-      return;
-    }
+    const { params, type, dependsOn: validationDependsOn = {} } = validation;
     // chain method if validation doesn't depends on anything
-    if (!validationDependsOn.length) {
+    if (!validationDependsOn.fields) {
       validator = validator[type](...params);
       return;
     }
-    const showDependingError = showDependingValidationError(
+    const showDependingError = eveluateJsonLogicOperator(
       validationDependsOn,
       values
     );
