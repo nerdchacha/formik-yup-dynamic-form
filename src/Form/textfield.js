@@ -10,7 +10,9 @@ class TextField extends Component {
       placeholder,
       values,
       onChange,
-      dependsOn
+      dependsOn,
+      touched,
+      onBlur
     } = this.props;
     const value = values[name] || "";
     const renderError = error ? <strong>{error}</strong> : null;
@@ -28,8 +30,9 @@ class TextField extends Component {
           placeholder={placeholder}
           value={value}
           onChange={onChange}
+          onBlur={onBlur}
         />
-        {renderError}
+        {touched && renderError}
       </div>
     );
   }

@@ -40,6 +40,8 @@ class Form extends Component {
           error={error}
           setFieldValue={props.setFieldValue}
           dependsOn={item.dependsOn}
+          touched={props.touched[item.id]}
+          onBlur={props.handleBlur}
         />
       );
     });
