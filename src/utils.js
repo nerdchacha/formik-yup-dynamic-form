@@ -35,3 +35,6 @@ export function eveluateJsonLogicOperator(dependsOn = {}, values = {}) {
   const result = jsonLogic.apply(operator, data);
   return result;
 }
+
+export const compose = (...args) => value =>
+  args.reduceRight((seed, item) => item(seed), value);

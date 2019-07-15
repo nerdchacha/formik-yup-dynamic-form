@@ -35,8 +35,7 @@ class DateOfBirth extends Component {
     allTouchedConfig[field]();
   };
   render() {
-    const { error, label, name, touched } = this.props;
-    const renderError = error ? <strong>{error}</strong> : null;
+    const { errorComponent, label, name } = this.props;
     const { day, month, year } = this.state;
     return (
       <div>
@@ -66,7 +65,7 @@ class DateOfBirth extends Component {
           onChange={e => this.handleChange("year", e.target.value)}
           onBlur={e => this.handleBlur("year", e)}
         />
-        {touched && renderError}
+        {errorComponent}
       </div>
     );
   }

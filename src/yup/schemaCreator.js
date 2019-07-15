@@ -3,8 +3,8 @@ import { eveluateJsonLogicOperator } from "../utils";
 import "./customMethods";
 
 function validationSchemaCreator(schema, config, values) {
-  const { id, validationType, validations = [], dependsOn } = config;
-  if (!yup[validationType]) {
+  const { id, yupType, validations = [], dependsOn } = config;
+  if (!yup[yupType]) {
     return schema;
   }
   const isFieldVisible = eveluateJsonLogicOperator(dependsOn, values);
@@ -12,7 +12,7 @@ function validationSchemaCreator(schema, config, values) {
   if (!isFieldVisible) {
     return schema;
   }
-  let validator = yup[validationType]();
+  let validator = yup[yupType]();
   validations.forEach(validation => {
     const { params, type, dependsOn: validationDependsOn = {} } = validation;
     // chain method if validation doesn't depends on anything

@@ -4,7 +4,7 @@ export const formData = [
     label: "Full name",
     placeholder: "Enter full name",
     type: "text",
-    validationType: "string",
+    yupType: "string",
     value: "User name",
     validations: [
       {
@@ -26,7 +26,7 @@ export const formData = [
     label: "Email",
     placeholder: "Email",
     type: "text",
-    validationType: "string",
+    yupType: "string",
     value: "email",
     validations: [
       {
@@ -51,7 +51,7 @@ export const formData = [
     id: "phoneNumber",
     label: "phone number",
     type: "text",
-    validationType: "number",
+    yupType: "number",
     value: "7878787878",
     validations: [
       {
@@ -73,7 +73,7 @@ export const formData = [
     label: "Total People in Family",
     placeholder: "family members count",
     type: "text",
-    validationType: "number",
+    yupType: "number",
     value: "1",
     validations: [
       {
@@ -94,7 +94,7 @@ export const formData = [
     id: "dob",
     label: "Date of birth",
     type: "dob",
-    validationType: "string",
+    yupType: "string",
     validations: [
       {
         type: "matches",
@@ -117,13 +117,13 @@ export const formData = [
     id: "show-next-field",
     label: "Show next field",
     type: "checkbox",
-    validationType: "boolean"
+    yupType: "boolean"
   },
   {
     id: "help",
     label: "need help",
     type: "text",
-    validationType: "string",
+    yupType: "string",
     dependsOn: [
       {
         field: "show-next-field",
@@ -136,7 +136,7 @@ export const formData = [
     id: "field-depends-on-field",
     label: "Show hide field depending on another field",
     type: "text",
-    validationType: "string",
+    yupType: "string",
     dependsOn: {
       // type is required since textbox/dropdown will convert everything to string
       fields: [
@@ -174,7 +174,7 @@ export const formData = [
     id: "validation-depends-on-field",
     label: "The validation of this field depending on another field",
     type: "text",
-    validationType: "string",
+    yupType: "string",
     validations: [
       {
         type: "required",
