@@ -1,13 +1,11 @@
-import React from "react";
+import React from 'react';
 
-import { eveluateJsonLogicOperator } from "../utils";
+import { evaluateJsonLogicOperator } from '../jsonLogic/utils';
 
-export default function withErrorComponent(InnerComponent) {
-  return function WithErrorCopmponent(props) {
+export default function withShowElementComponent(InnerComponent) {
+  return function WithShowElementComponent(props) {
     const { dependsOn, values, ...rest } = props;
-    const showElement = eveluateJsonLogicOperator(dependsOn, values);
-    return showElement ? (
-      <InnerComponent showElement={showElement} values={values} {...rest} />
-    ) : null;
+    const showElement = evaluateJsonLogicOperator(dependsOn, values);
+    return showElement ? <InnerComponent values={values} {...rest} /> : null;
   };
 }

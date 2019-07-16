@@ -1,7 +1,6 @@
-import React from "react";
-import ReactDOM from "react-dom";
-import Form from "./Form";
-import "./styles.css";
+import React from 'react';
+import ReactDOM from 'react-dom';
+import Form from './Form';
 
 class App extends React.Component {
   render() {
@@ -12,5 +11,5 @@ class App extends React.Component {
     );
   }
 }
-const rootElement = document.getElementById("root");
+const rootElement = document.getElementById('root');
 ReactDOM.render(<App />, rootElement);

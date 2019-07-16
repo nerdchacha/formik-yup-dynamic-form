@@ -1,13 +1,13 @@
-import * as yup from "yup";
-import { eveluateJsonLogicOperator } from "../utils";
-import "./customMethods";
+import * as yup from 'yup';
+import { evaluateJsonLogicOperator } from '../jsonLogic/utils';
+import './customMethods';
 
-function validationSchemaCreator(schema, config, values) {
+const validationSchemaCreator = values => (schema, config) => {
   const { id, yupType, validations = [], dependsOn } = config;
   if (!yup[yupType]) {
     return schema;
   }
-  const isFieldVisible = eveluateJsonLogicOperator(dependsOn, values);
+  const isFieldVisible = evaluateJsonLogicOperator(dependsOn, values);
   // Dont add validation to schema if field is hidden
   if (!isFieldVisible) {
     return schema;
@@ -20,9 +20,9 @@ function validationSchemaCreator(schema, config, values) {
       validator = validator[type](...params);
       return;
     }
-    const showDependingError = eveluateJsonLogicOperator(
+    const showDependingError = evaluateJsonLogicOperator(
       validationDependsOn,
-      values
+      values,
     );
     // chain method if the condition is true for validation
     if (showDependingError) {
@@ -31,14 +31,11 @@ function validationSchemaCreator(schema, config, values) {
   });
   schema[id] = validator;
   return schema;
-}
+};
 
 export function createYupSchema(data) {
   return yup.lazy(values => {
-    const schema = data.reduce(
-      (schema, config) => validationSchemaCreator(schema, config, values),
-      {}
-    );
+    const schema = data.reduce(validationSchemaCreator(values), {});
     return yup.object().shape(schema);
   });
 }

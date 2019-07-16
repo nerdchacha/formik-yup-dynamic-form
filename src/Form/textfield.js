@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { Component } from 'react';
 
 class TextField extends Component {
   render() {
@@ -9,9 +9,9 @@ class TextField extends Component {
       placeholder,
       values,
       onChange,
-      onBlur
+      onBlur,
     } = this.props;
-    const value = values[name] || "";
+    const value = values[name] || '';
     return (
       <div>
         <label>{label}</label>
