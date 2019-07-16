@@ -132,7 +132,7 @@ export const formData = [
     type: 'text',
     yupType: 'string',
     dependsOn: {
-      fields: [{ name: 'show-next-field', parser: 'boolean' }],
+      fields: [{ name: 'show-next-field', parser: { type: 'boolean' } }],
       operator: {
         '===': [true, { var: 'show-next-field' }],
       },
@@ -147,8 +147,8 @@ export const formData = [
     dependsOn: {
       // type is required since textbox/dropdown will convert everything to string
       fields: [
-        { name: 'total', parser: 'number' },
-        { name: 'email', parser: 'string' },
+        { name: 'total', parser: { type: 'number' } },
+        { name: 'email', parser: { type: 'string' } },
       ],
       // Use https://www.npmjs.com/package/json-logic-js to create the operator
       operator: {
@@ -196,8 +196,8 @@ export const formData = [
         dependsOn: {
           // type is required since textbox/dropdown will convert everything to string
           fields: [
-            { name: 'total', parser: 'number' },
-            { name: 'phoneNumber', parser: 'number' },
+            { name: 'total', parser: { type: 'number' } },
+            { name: 'phoneNumber', parser: { type: 'number' } },
           ],
           // Use https://www.npmjs.com/package/json-logic-js to create the operator
           operator: {
@@ -227,12 +227,15 @@ export const formData = [
     type: 'text',
     yupType: 'string',
     dependsOn: {
-      fields: [{ name: 'dob', parser: 'date' }],
+      fields: [{ name: 'dob', parser: { type: 'date' } }],
       operator: {
         // This is a custom operator
         // https://github.com/jwadhams/json-logic-js/issues/6
         // http://jsonlogic.com/add_operation.html
-        '>': [{ date: { var: 'dob' } }, { date: '12-12-2001' }],
+        '>': [
+          { date: { var: 'dob' } },
+          { date: ['2001-12-12', 'YYYY-MM-DD', true] },
+        ],
       },
     },
   },

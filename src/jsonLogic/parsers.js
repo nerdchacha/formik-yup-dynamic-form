@@ -17,4 +17,5 @@ export const boolean = value => {
   return !!value;
 };
 
-export const date = value => moment(value, 'DD-MM-YYYY', true);
+export const date = (value, format = 'DD-MM-YYYY') =>
+  moment(value, format, true);

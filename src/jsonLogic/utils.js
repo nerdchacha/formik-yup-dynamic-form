@@ -4,8 +4,8 @@ import { number, string, boolean, date } from './parsers';
 
 const parserConfig = { number, string, boolean, date };
 
-export function parseValue(value, parser) {
-  return parserConfig[parser] ? parserConfig[parser](value) : string(value);
+export function parseValue(value, { type, format } = {}) {
+  return parserConfig[type] ? parserConfig[type](value, format) : string(value);
 }
 
 export function evaluateJsonLogicOperator(dependsOn = {}, values = {}) {
